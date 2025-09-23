@@ -6,16 +6,16 @@ import User from "../db/models/user.js";
 export const register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
-    //aynı maille sahip kullanıcı var mı kontrol et
+    //aynı maile ve isme sahip kullanıcı var mı kontrol et
     const existingUser = await User.findOne({ $or: [{ email }, { username }] });
     if (existingUser) {
       return res.status(400).json({ error: "User already exists" });
     }
     //password hashing
     const salt = await bcrypt.genSalt(10);
-    const passwordHash = await bcrypt.hash(password, salt);
+    const hashedPassword = await bcrypt.hash(password, salt);
     // Create a new user
-    const newUser = new User({ username, email, password: passwordHash });
+    const newUser = new User({ username, email, password: hashedPassword });
     await newUser.save();
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
@@ -26,11 +26,11 @@ export const register = async (req, res) => {
 // Login a user
 export const login = async (req, res) => {
   try {
-    const { loginId, password } = req.body;
+    const { email, password } = req.body;
 
     // Find user by user
     const user = await User.findOne({
-      $or: [{ email: loginId }, { username: loginId }],
+      email,
     });
     if (!user) return res.status(400).json({ error: "User not found" });
 
