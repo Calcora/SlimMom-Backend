@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
 import { env } from "../src/utils/env.js";
-import router from "./routes/auth.js";
+import authRouter from "./routes/auth.js";
+import userRouter from "./routes/user.js";
 import { notFoundHandler } from "./middlewares/notFoundHandler.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 
@@ -13,7 +14,8 @@ export function setupServer() {
   app.use(express.json());
   app.use(cors());
 
-  app.use("/auth", router);
+  app.use("/auth", authRouter);
+  app.use("/user", userRouter);
 
   // app.use("*", notFoundHandler);
   app.use(errorHandler);
