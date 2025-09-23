@@ -15,10 +15,11 @@ export const register = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
     // Create a new user
-    const newUser = new User({ username, email, password: passwordHash });
+    const newUser = new User({ username, email, passwordHash: password });
     await newUser.save();
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
+    console.error("Error in register:", error);
     res.status(500).json({ error: "Server error" });
   }
 };
