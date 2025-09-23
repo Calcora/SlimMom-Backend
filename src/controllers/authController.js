@@ -1,24 +1,17 @@
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import User from "../db/models/user.js";
+
+import { loginUser, registerUser } from "../services/authService.js";
 
 // Register a new user
 export const register = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
-    //aynı maile ve isme sahip kullanıcı var mı kontrol et
-    const existingUser = await User.findOne({ $or: [{ email }, { username }] });
-    if (existingUser) {
-      return res.status(400).json({ error: "User already exists" });
-    }
-    //password hashing
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-    // Create a new user
-    const newUser = new User({ username, email, password: hashedPassword });
-    await newUser.save();
+    const registerPayload = req.body;
+    await registerUser(registerPayload);
+
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
+    console.error("❌ Registration error:", error.message);
     res.status(500).json({ error: "Server error" });
   }
 };
@@ -26,27 +19,12 @@ export const register = async (req, res) => {
 // Login a user
 export const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const loginPayload = req.body;
+    const token = await loginUser(loginPayload);
 
-    // Find user by user
-    const user = await User.findOne({
-      email,
-    });
-    if (!user) return res.status(400).json({ error: "User not found" });
-
-    // Check password
-    const validPassword = await bcrypt.compare(password, user.password);
-    if (!validPassword)
-      return res.status(400).json({ error: "Invalid password" });
-
-    // JWT token generation
-    const token = jwt.sign(
-      { id: user._id, email: user.email, username: user.username },
-      process.env.JWT_SECRET,
-      { expiresIn: "1h" }
-    );
-    res.status(200)({ token });
+    res.status(200).json({ token });
   } catch (error) {
+    console.error("❌ Login error:", error.message);
     res.status(500).json({ error: "Server error" });
   }
 };
