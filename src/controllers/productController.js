@@ -19,9 +19,9 @@ export const getProductsController = async (req, res) => {
 
 export const filteredProductsController = async (req, res) => {
   try {
-    console.log("➡️ Gelen query:", req.query);
+    console.log("Gelen query:", req.query);
     const products = await filteredProducts(req.query);
-    console.log("🔍 Bulunan ürünler:", products);
+    console.log(" Bulunan ürünler:", products);
 
     if (!products.length) {
       return res.status(404).json({ message: "No matching products found" });
