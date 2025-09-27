@@ -21,6 +21,10 @@ const productSchema = new mongoose.Schema(
     groupBloodNotAllowed: {
       type: [Boolean],
     },
+    // yenilen yiyecekler
+    eaten: {
+      
+    },
   },
   { timestamps: false }
 );
