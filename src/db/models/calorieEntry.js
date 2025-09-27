@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 const now = new Date();
 const gmt3 = new Date(now.getTime() + 3 * 60 * 60 * 1000);
 const calorieEntrySchema = new mongoose.Schema(
@@ -19,6 +19,11 @@ const calorieEntrySchema = new mongoose.Schema(
         required: true,
       },
     ],
+    // eated foods
+    eattenFoods: {
+      type: mongoose.Schema.Types.Array,
+      default: [],
+    },
   },
   { timestamps: true }
 );
