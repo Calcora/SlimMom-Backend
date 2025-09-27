@@ -3,17 +3,12 @@ import {
   privateCalorieEntryController,
   publicCalorieEntryController,
 } from "../controllers/calorieController.js";
-
-import { getAllFoodByDateController } from "../controllers/dayFoodController.js";
-
 import { verifyToken } from "../middlewares/auth.js";
 
 const calorieRouter = express.Router();
 
-// Prviate calorie entry
 calorieRouter.post("/private", verifyToken, privateCalorieEntryController);
-// Private get all calorie entries for the day
-// calorieRouter.get("/private/all", verifyToken, getAllFoodByDateController);
+calorieRouter.get("/private/all", verifyToken, privateCalorieEntryController);
 
 calorieRouter.post("/public", publicCalorieEntryController);
 

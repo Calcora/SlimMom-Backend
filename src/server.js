@@ -2,13 +2,10 @@ import express from "express";
 import cors from "cors";
 import { env } from "../src/utils/env.js";
 import authRouter from "./routes/auth.js";
-import calorieRouter from "./routes/calorie.js";
-
 // import { notFoundHandler } from "./middlewares/notFoundHandler.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
-
-// Products Controller
-import { getProductsController } from "./controllers/productController.js";
+import productsRouter from "./routes/products.js";
+import calorieRouter from "./routes/calorie.js";
 
 const PORT = env("PORT") || 3000;
 
@@ -19,8 +16,8 @@ export function setupServer() {
   app.use(cors());
 
   app.use("/auth", authRouter);
+  app.use("/products", productsRouter);
   app.use("/calorie", calorieRouter);
-  app.get("/products", getProductsController);
 
   // app.use("*", notFoundHandler);
   app.use(errorHandler);

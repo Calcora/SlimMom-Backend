@@ -21,12 +21,8 @@ const productSchema = new mongoose.Schema(
     groupBloodNotAllowed: {
       type: [Boolean],
     },
-    // yenilen yiyecekler
-    eaten: {
-      
-    },
   },
   { timestamps: false }
 );
 
-export default mongoose.model("Product", productSchema);
+export default mongoose.model("Products", productSchema);
