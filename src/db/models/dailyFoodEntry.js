@@ -56,26 +56,29 @@ const dailyFoodEntrySchema = new mongoose.Schema(
     },
     remainingCalories: {
       type: Number,
-      default: function() {
+      default: function () {
         return this.targetCalories - this.totalCalories;
       },
     },
   },
-  { 
+  {
     timestamps: true,
     // Bir kullanıcının bir günde sadece bir entry'si olsun
     indexes: [
-      { 
-        unique: true, 
-        fields: { userId: 1, date: 1 } 
-      }
-    ]
+      {
+        unique: true,
+        fields: { userId: 1, date: 1 },
+      },
+    ],
   }
 );
 
 // Her kaydetmeden önce totalCalories'i güncelle
-dailyFoodEntrySchema.pre('save', function(next) {
-  this.totalCalories = this.foods.reduce((total, food) => total + food.calories, 0);
+dailyFoodEntrySchema.pre("save", function (next) {
+  this.totalCalories = this.foods.reduce(
+    (total, food) => total + food.calories,
+    0
+  );
   this.remainingCalories = this.targetCalories - this.totalCalories;
   next();
 });
