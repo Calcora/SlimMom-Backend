@@ -29,10 +29,7 @@ export const privateCalorieEntry = async (user, userData) => {
   const isDateMatch =
     existingEntry &&
     existingEntry.createdAt.toISOString().split("T")[0] === todayDate;
-
-  console.log("Existing Entry:", existingEntry);
-  console.log("Today's Date:", todayDate);
-  console.log("Is Date Match:", isDateMatch);
+ 
 
   if (isDateMatch) {
     console.log("Returning existing entry for today.");

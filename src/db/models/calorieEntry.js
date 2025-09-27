@@ -20,7 +20,7 @@ const calorieEntrySchema = new mongoose.Schema(
       },
     ],
     // eated foods
-    eattenFoods: {
+    eatenFoods: {
       type: mongoose.Schema.Types.Array,
       default: [],
     },
