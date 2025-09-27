@@ -13,7 +13,7 @@ const calorieEntrySchema = new mongoose.Schema(
     nOfNormal: { type: Number, required: true },
     notAllowedProducts: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         ref: "Product",
         required: true,
       },

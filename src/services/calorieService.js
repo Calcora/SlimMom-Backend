@@ -11,21 +11,69 @@ export const privateCalorieEntry = async (user, userData) => {
       10 * (currentWeight - desiredWeight)
   );
 
+  // const allProducts = await Product.find();
+  // const notAllowedProducts = allProducts.filter(
+  //   (product) => product.groupBloodNotAllowed[bloodType]
+  // );
+
+  // // const todayDate = new Date();
+  // // console.log("Today's date:", todayDate);
+
+  // const calorieEntry = await CalorieEntry.create({
+  //   dailyRate,
+  //   userId: user._id ?? user.id,
+  //   consumed: 0,
+  //   left: dailyRate,
+  //   nOfNormal: 0,
+  //   notAllowedProducts: notAllowedProducts.map((p) => p.title),
+  // });
+
+  // return calorieEntry;
+  console.log("User ID:", user.id);
   const allProducts = await Product.find();
+
   const notAllowedProducts = allProducts.filter(
     (product) => product.groupBloodNotAllowed[bloodType]
   );
 
-  const calorieEntry = await CalorieEntry.create({
-    dailyRate,
-    userId: user._id ?? user.id,
-    consumed: 0,
-    left: dailyRate,
-    nOfNormal: 0,
-    notAllowedProducts: notAllowedProducts.map((p) => p._id),
+  const notAllowedProductTitles = notAllowedProducts.map((p) => p.title);
+
+  const existingEntry = await CalorieEntry.findOne({
+    userId: user.id,
   });
 
-  return calorieEntry;
+  const todayDate = new Date().toISOString().split("T")[0];
+
+  const isDateMatch =
+    existingEntry &&
+    existingEntry.createdAt.toISOString().split("T")[0] === todayDate;
+
+  if (isDateMatch) {
+    console.log("Returning existing entry for today.");
+    console.log("Updated existing entry for today.");
+    await CalorieEntry.updateOne(
+      { _id: existingEntry.id },
+      {
+        dailyRate,
+        consumed: 0,
+        left: dailyRate,
+        nOfNormal: 0,
+        notAllowedProducts: notAllowedProductTitles,
+      }
+    );
+
+    return await CalorieEntry.findById(existingEntry.id);
+  } else {
+    console.log("Created new entry for today.");
+    return await CalorieEntry.create({
+      dailyRate,
+      userId: user.id,
+      consumed: 0,
+      left: dailyRate,
+      nOfNormal: 0,
+      notAllowedProducts: notAllowedProductTitles,
+    });
+  }
 };
 
 export const publicCalorieEntry = async (userData) => {
@@ -48,6 +96,6 @@ export const publicCalorieEntry = async (userData) => {
     consumed: 0,
     left: dailyRate,
     nOfNormal: 0,
-    notAllowedProducts: notAllowedProducts.map((p) => p._id),
+    notAllowedProducts: notAllowedProducts.map((p) => p.title),
   };
 };
