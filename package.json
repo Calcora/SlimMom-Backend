@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Calcora/SlimMom-Backend#readme",
   "description": "",
   "dependencies": {
+    "@joi/date": "^2.1.1",
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.7.0",
     "cookie-parser": "^1.4.7",
@@ -32,6 +33,7 @@
     "mongoose": "^8.18.2",
     "multer": "^2.0.2",
     "nodemailer": "^7.0.6",
+    "nodemon": "^3.1.10",
     "pino-http": "^10.5.0",
     "pino-pretty": "^13.1.1",
     "swagger-ui-express": "^5.0.1",
