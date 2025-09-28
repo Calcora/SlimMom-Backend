@@ -6,6 +6,8 @@ import authRouter from "./routes/auth.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 import productsRouter from "./routes/products.js";
 import calorieRouter from "./routes/calorie.js";
+import { swaggerDocs } from "./middlewares/swaggerDocs.js";
+// import { stupSwagger } from "./middlewares/swaggerDocs.js";
 
 const PORT = env("PORT") || 3000;
 
@@ -18,6 +20,10 @@ export function setupServer() {
   app.use("/auth", authRouter);
   app.use("/products", productsRouter);
   app.use("/calorie", calorieRouter);
+  app.use("/api-docs", swaggerDocs());
+  console.log("✅ Swagger UI mounted at /api-docs");
+
+  // stupSwagger(app);
 
   // app.use("*", notFoundHandler);
   app.use(errorHandler);
@@ -27,5 +33,6 @@ export function setupServer() {
 
   app.listen(PORT, () => {
     console.log(`✅ | Server running on port ${PORT}`);
+    console.log(`📑 | Swagger docs at ${PORT}/api-docs`);
   });
 }

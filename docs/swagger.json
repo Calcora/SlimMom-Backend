@@ -1,0 +1,285 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "SlimMom API",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "description": "A comprehensive API for managing personal contacts with user authentication, password reset functionality, and image upload capabilities.\nFeatures: - User registration and authentication - JWT-based session management - Contact CRUD operations with user isolation - Image upload to Cloudinary - Password reset via email\n"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    },
+    {
+      "url": "https://example.com/api/v1",
+      "description": "Production server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authentication and user management"
+    },
+    {
+      "name": "User",
+      "description": "User management operations"
+    }
+  ],
+  "paths": {
+    "/login": {
+      "tags": ["Auth"],
+      "summary": "User login",
+      "operationId": "loginUser",
+      "description": "Authenticate user and get access token",
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["username", "email", "password"],
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": "Jane Smith"
+                },
+                "email": {
+                  "type": "string",
+                  "format": "email",
+                  "example": "jane@example.com"
+                },
+                "password": {
+                  "type": "string",
+                  "format": "password",
+                  "example": "password123"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Successfully logged in",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "integer",
+                    "example": 200
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Successfully logged in an user!"
+                  },
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "accessToken": {
+                        "type": "string",
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "401": {
+          "description": "Invalid credentials",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "../components/schemas/Error.yaml"
+              },
+              "example": {
+                "status": 401,
+                "message": "Invalid credentials"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/register": {
+      "tags": ["Auth"],
+      "summary": "Register new user",
+      "operationId": "registerUser",
+      "description": "Create a new user account",
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["username", "email", "password"],
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": "Jane Smith"
+                },
+                "email": {
+                  "type": "string",
+                  "format": "email",
+                  "example": "jane@example.com"
+                },
+                "password": {
+                  "type": "string",
+                  "format": "password",
+                  "minLength": 6,
+                  "example": "password123"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "User successfully registered",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "integer",
+                    "example": 201
+                  },
+                  "message": {
+                    "type": "string",
+                    "example": "Successfully registered a user!"
+                  },
+                  "data": {
+                    "$ref": "../components/schemas/User.yaml"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "409": {
+          "description": "Email already in use",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "../components/schemas/Error.yaml"
+              },
+              "example": {
+                "status": 409,
+                "message": "Email in use"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "User": {
+        "type": "object",
+        "required": ["username", "email"],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "format": "objectid",
+            "description": "Unique identifier for the user"
+          },
+          "username": {
+            "type": "string",
+            "description": "User's full name",
+            "example": "Jane Smith"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "User's email address",
+            "example": "jane@example.com"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "User creation timestamp"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "HTTP status code",
+            "example": 404
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Contact not found"
+          }
+        }
+      },
+      "SuccessResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "integer",
+            "description": "HTTP status code",
+            "example": 200
+          },
+          "message": {
+            "type": "string",
+            "description": "Success message",
+            "example": "Successfully found contacts!"
+          },
+          "data": {
+            "description": "Response data"
+          }
+        }
+      }
+    },
+    "responses": {
+      "NotFound": {
+        "description": "Resource not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "status": 404,
+              "message": "Contact not found"
+            }
+          }
+        }
+      },
+      "ValidationError": {
+        "description": "Validation error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            },
+            "example": {
+              "status": 400,
+              "message": "Validation failed"
+            }
+          }
+        }
+      }
+    }
+  }
+}
