@@ -43,9 +43,17 @@ export const removeFoodFromDateByIdController = async (req, res, next) => {
     await removeFoodFromDateById(userId, {
       date,
       data: { id: foodId },
-    });
-
-    res.status(204).json({ message: "ID: "+foodId+ " Food removed successfully" });
+    })
+      .then((data) => {
+        res.status(204).json({
+          message: "ID: " + foodId + " Food removed successfully",
+          data: data,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        next(err);
+      });
   } catch (error) {
     console.log(error);
     next(error);
