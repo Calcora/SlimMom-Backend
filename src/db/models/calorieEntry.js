@@ -1,6 +1,5 @@
-import mongoose, { mongo } from "mongoose";
-const now = new Date();
-const gmt3 = new Date(now.getTime() + 3 * 60 * 60 * 1000);
+import mongoose from "mongoose";
+
 const calorieEntrySchema = new mongoose.Schema(
   {
     userId: {

@@ -11,6 +11,24 @@ export const privateCalorieEntry = async (user, userData) => {
       10 * (currentWeight - desiredWeight)
   );
 
+  // const allProducts = await Product.find();
+  // const notAllowedProducts = allProducts.filter(
+  //   (product) => product.groupBloodNotAllowed[bloodType]
+  // );
+
+  // // const todayDate = new Date();
+  // // console.log("Today's date:", todayDate);
+
+  // const calorieEntry = await CalorieEntry.create({
+  //   dailyRate,
+  //   userId: user._id ?? user.id,
+  //   consumed: 0,
+  //   left: dailyRate,
+  //   nOfNormal: 0,
+  //   notAllowedProducts: notAllowedProducts.map((p) => p.title),
+  // });
+
+  // return calorieEntry;
   console.log("User ID:", user.id);
   const allProducts = await Product.find();
 
