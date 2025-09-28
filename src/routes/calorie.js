@@ -6,21 +6,43 @@ import {
 import { verifyToken } from "../middlewares/auth.js";
 
 import { validateBody } from "../middlewares/validateBody.js";
+import { validateParams } from "../middlewares/validateParams.js";
 
 // Calorie entry validation schema
-import { getAllEattenFoodsSchema } from "../validation/calorieSchema.js";
+import {
+  addEattenFoodSchema,
+  getAllEattenFoodsSchema,
+  removeEattenFoodSchema,
+} from "../validation/calorieSchema.js";
 
 // Controller to get all food by date
-import { getAllFoodByDateController } from "../controllers/dayFoodController.js";
+import {
+  addFoodByDateController,
+  getAllFoodByDateController,
+  removeFoodFromDateByIdController,
+} from "../controllers/dayFoodController.js";
 
 const calorieRouter = express.Router();
 
 calorieRouter.post("/private", verifyToken, privateCalorieEntryController);
-calorieRouter.post(
-  "/private/all",
+calorieRouter.get(
+  "/private/:date/all",
   verifyToken,
-  validateBody(getAllEattenFoodsSchema),
+  validateParams(getAllEattenFoodsSchema),
   getAllFoodByDateController
+);
+calorieRouter.post(
+  "/private/:date/add",
+  verifyToken,
+  validateParams(getAllEattenFoodsSchema),
+  validateBody(addEattenFoodSchema),
+  addFoodByDateController
+);
+calorieRouter.delete(
+  "/private/:date/remove/:id",
+  verifyToken,
+  validateParams(removeEattenFoodSchema),
+  removeFoodFromDateByIdController
 );
 
 calorieRouter.post("/public", publicCalorieEntryController);

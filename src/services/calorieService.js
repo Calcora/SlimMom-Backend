@@ -29,7 +29,6 @@ export const privateCalorieEntry = async (user, userData) => {
   const isDateMatch =
     existingEntry &&
     existingEntry.createdAt.toISOString().split("T")[0] === todayDate;
- 
 
   if (isDateMatch) {
     console.log("Returning existing entry for today.");
@@ -42,6 +41,7 @@ export const privateCalorieEntry = async (user, userData) => {
         left: dailyRate,
         nOfNormal: 0,
         notAllowedProducts: notAllowedProductTitles,
+        eatenFoods: [],
       }
     );
 
@@ -55,6 +55,7 @@ export const privateCalorieEntry = async (user, userData) => {
       left: dailyRate,
       nOfNormal: 0,
       notAllowedProducts: notAllowedProductTitles,
+      eatenFoods: [],
     });
   }
 };
