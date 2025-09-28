@@ -59,6 +59,7 @@ export const privateCalorieEntry = async (user, userData) => {
         left: dailyRate,
         nOfNormal: 0,
         notAllowedProducts: notAllowedProductTitles,
+        eatenFoods: [],
       }
     );
 
@@ -72,6 +73,7 @@ export const privateCalorieEntry = async (user, userData) => {
       left: dailyRate,
       nOfNormal: 0,
       notAllowedProducts: notAllowedProductTitles,
+      eatenFoods: [],
     });
   }
 };

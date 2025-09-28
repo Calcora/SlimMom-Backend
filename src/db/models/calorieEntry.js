@@ -18,7 +18,11 @@ const calorieEntrySchema = new mongoose.Schema(
         required: true,
       },
     ],
-    createdAt: { type: Date, default: Date.now },
+    // eated foods
+    eatenFoods: {
+      type: mongoose.Schema.Types.Array,
+      default: [],
+    },
   },
   { timestamps: true }
 );
