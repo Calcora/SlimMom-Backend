@@ -18,7 +18,7 @@ export function setupServer() {
   app.use(cors());
   app.get("/", (req, res) => {
     res.send("Welcome to the Calorie Tracker API");
-  }
+  });
   app.use("/auth", authRouter);
   app.use("/products", productsRouter);
   app.use("/calorie", calorieRouter);
