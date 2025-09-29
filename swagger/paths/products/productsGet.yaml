@@ -1,5 +1,11 @@
-get:
-  summary: Get all products
-  responses:
-    200:
-      description: List of products
+Products:
+  type: object
+  properties:
+    categories: { type: string }
+    weight: { type: number }
+    title: { type: string }
+    calories: { type: number }
+    groupBloodNotAllowed:
+      type: array
+      items:
+        type: boolean

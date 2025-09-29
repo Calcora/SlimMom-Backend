@@ -29,6 +29,6 @@ responses:
               type: string
               example: "Successfully found user with id 65f4c2a6b5f3a2b4c6d8e9f0!"
             data:
-              $ref: "../../../components/schemas/User.yaml"
+              $ref: "../../components/schemas/User.yaml"
   "404":
-    $ref: "../../../components/responses/NotFound.yaml"
+    $ref: ../../components/responses/NotFoundError.yaml

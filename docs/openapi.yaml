@@ -15,7 +15,8 @@ tags:
   - name: Auth
     description: Auth operations.
 servers:
-  - url: https://slimmom-backend-o5ma.onrender.com
+  - url: http://localhost:3000
+  # - url: https://slimmom-backend-o5ma.onrender.com
 paths:
   /auth/register:
     $ref: ../swagger/paths/auth/register.yaml
@@ -31,18 +32,19 @@ paths:
       $ref: ../swagger/paths/user/profile/patch.yaml
     get:
       $ref: ../swagger/paths/user/get.yaml
-  /user/calorie/private/{date}/allGet:
+  /user/calorie/private/{date}/all:
     $ref: ../swagger/paths/user/calorie/private/%7Bdate%7D/allGet.yaml
-  /user/calorie/private/{date}/addPost:
+  /user/calorie/private/{date}/add:
     $ref: ../swagger/paths/user/calorie/private/%7Bdate%7D/addPost.yaml
-  /user/calorie/private/{date}/remove/{id}Delete:
+  /user/calorie/private/{date}/remove/{id}:
     $ref: ../swagger/paths/user/calorie/private/%7Bdate%7D/remove/%7Bid%7DDelete.yaml
   /user/calorie/privatePost:
     $ref: ../swagger/paths/user/calorie/privatePost.yaml
   /user/calorie/public/publicPost:
     $ref: ../swagger/paths/user/calorie/public/publicPost.yaml
   /products:
-    $ref: ../swagger/paths/products/searchGet.yaml
+    search:
+      $ref: ../swagger/paths/products/searchGet.yaml
     get:
       $ref: ../swagger/paths/products/productsGet.yaml
 
