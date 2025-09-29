@@ -15,13 +15,37 @@ tags:
   - name: Auth
     description: Auth operations.
 servers:
-  - url: http://localhost:3000
-  - url: https://example.com/api/v1
+  - url: https://slimmom-backend-o5ma.onrender.com
 paths:
   /auth/register:
-    $ref: "../swagger/paths/register.yaml"
+    $ref: ../swagger/paths/auth/register.yaml
   /auth/login:
-    $ref: "../swagger/paths/login.yaml"
+    $ref: ../swagger/paths/auth/login.yaml
+  /user:
+    get:
+      $ref: ../swagger/paths/user/get.yaml
+    post:
+      $ref: ../swagger/paths/user/post.yaml
+  /user/profile:
+    patch:
+      $ref: ../swagger/paths/user/profile/patch.yaml
+    get:
+      $ref: ../swagger/paths/user/get.yaml
+  /user/calorie/private/{date}/allGet:
+    $ref: ../swagger/paths/user/calorie/private/%7Bdate%7D/allGet.yaml
+  /user/calorie/private/{date}/addPost:
+    $ref: ../swagger/paths/user/calorie/private/%7Bdate%7D/addPost.yaml
+  /user/calorie/private/{date}/remove/{id}Delete:
+    $ref: ../swagger/paths/user/calorie/private/%7Bdate%7D/remove/%7Bid%7DDelete.yaml
+  /user/calorie/privatePost:
+    $ref: ../swagger/paths/user/calorie/privatePost.yaml
+  /user/calorie/public/publicPost:
+    $ref: ../swagger/paths/user/calorie/public/publicPost.yaml
+  /products:
+    $ref: ../swagger/paths/products/searchGet.yaml
+    get:
+      $ref: ../swagger/paths/products/productsGet.yaml
+
 components:
   securitySchemes:
     bearerAuth:

@@ -1,0 +1,20 @@
+delete:
+  summary: Remove food from date
+  security:
+    - bearerAuth: []
+  parameters:
+    - in: path
+      name: date
+      required: true
+      schema:
+        type: string
+        example: "2025-09-29"
+    - in: path
+      name: id
+      required: true
+      schema:
+        type: string
+        example: "67001234abcd5678ef901234"
+  responses:
+    200:
+      description: Food removed

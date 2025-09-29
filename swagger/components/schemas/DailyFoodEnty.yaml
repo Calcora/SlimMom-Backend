@@ -1,0 +1,18 @@
+DailyFoodEntry:
+  type: object
+  properties:
+    userId: { type: string }
+    date: { type: string, format: date }
+    foods:
+      type: array
+      items:
+        type: object
+        properties:
+          productId: { type: string }
+          productName: { type: string }
+          weight: { type: number }
+          calories: { type: number }
+          addedAt: { type: string, format: date-time }
+    totalCalories: { type: number }
+    targetCalories: { type: number }
+    remainingCalories: { type: number }

@@ -1,0 +1,11 @@
+get:
+  summary: Search products
+  parameters:
+    - in: query
+      name: keyword
+      schema:
+        type: string
+        example: apple
+  responses:
+    200:
+      description: Filtered products

@@ -1,0 +1,5 @@
+get:
+  summary: Get all products
+  responses:
+    200:
+      description: List of products

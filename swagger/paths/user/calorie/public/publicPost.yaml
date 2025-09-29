@@ -1,0 +1,8 @@
+post:
+  summary: Public calorie entry
+  operationId: publicCalorieEntry
+  security:
+    - bearerAuth: []
+  responses:
+    200:
+      description: Success

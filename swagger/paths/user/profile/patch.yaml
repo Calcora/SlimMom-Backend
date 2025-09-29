@@ -1,0 +1,36 @@
+tags:
+  - UserData
+summary: Update user profile data
+description: Update userData fields like height, age, weight, desiredWeight, bloodType
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          height:
+            type: number
+            example: 175
+          age:
+            type: number
+            example: 28
+          currentWeight:
+            type: number
+            example: 80
+          desiredWeight:
+            type: number
+            example: 70
+          bloodType:
+            type: number
+            enum: [1, 2, 3, 4]
+            example: 2
+responses:
+  200:
+    description: Profile updated successfully
+  400:
+    description: Invalid input
+  401:
+    description: Unauthorized
