@@ -1,0 +1,7 @@
+post:
+  summary: Private calorie entry
+  security:
+    - bearerAuth: []
+  responses:
+    200:
+      description: Success

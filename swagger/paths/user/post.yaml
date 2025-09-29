@@ -1,0 +1,43 @@
+tags:
+  - User
+summary: Create new User
+operationId: User
+description: Create a new User Successfully.
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - username
+        properties:
+          username:
+            type: string
+            description: User's full name
+            example: "John Doe"
+          email:
+            type: string
+            format: email
+            description: User's email address
+            example: "john.doe@example.com"
+
+responses:
+  "201":
+    description: Successfully created User
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: "Successfully created a User!"
+            data:
+              $ref: "../../components/schemas/User.yaml"
+  "400":
+    $ref: "../../components/responses/ValidationError.yaml"

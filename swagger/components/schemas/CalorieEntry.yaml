@@ -1,0 +1,15 @@
+CalorieEntry:
+  type: object
+  properties:
+    userId: { type: string }
+    left: { type: number }
+    consumed: { type: number }
+    dailyRate: { type: number }
+    nOfNormal: { type: number }
+    notAllowedProducts:
+      type: array
+      items:
+        type: string
+    eatenFoods:
+      type: array
+      items: { type: object }

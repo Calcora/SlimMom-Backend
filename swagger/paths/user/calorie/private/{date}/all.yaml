@@ -1,0 +1,14 @@
+get:
+  summary: Get all eaten foods by date
+  security:
+    - bearerAuth: []
+  parameters:
+    - in: path
+      name: date
+      required: true
+      schema:
+        type: string
+        example: "2025-09-29"
+  responses:
+    200:
+      description: List of foods

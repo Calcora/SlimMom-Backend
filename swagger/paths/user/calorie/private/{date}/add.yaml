@@ -1,0 +1,27 @@
+post:
+  summary: Add food by date
+  security:
+    - bearerAuth: []
+  parameters:
+    - in: path
+      name: date
+      required: true
+      schema:
+        type: string
+        example: "2025-09-29"
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            productId:
+              type: string
+              example: "67001234abcd5678ef901234"
+            amount:
+              type: number
+              example: 150
+  responses:
+    201:
+      description: Food added
