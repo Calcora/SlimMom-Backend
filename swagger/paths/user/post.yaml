@@ -12,6 +12,7 @@ requestBody:
         type: object
         required:
           - username
+          - email
         properties:
           username:
             type: string
