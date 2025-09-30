@@ -33,11 +33,11 @@ paths:
     get:
       $ref: ../swagger/paths/user/get.yaml
   /user/calorie/private/{date}/all:
-    $ref: ../swagger/paths/user/calorie/private/%7Bdate%7D/allGet.yaml
+    $ref: ../swagger/paths/user/calorie/private/{date}/all.yaml
   /user/calorie/private/{date}/add:
-    $ref: ../swagger/paths/user/calorie/private/%7Bdate%7D/addPost.yaml
+    $ref: ../swagger/paths/user/calorie/private/{date}/add.yaml
   /user/calorie/private/{date}/remove/{id}:
-    $ref: ../swagger/paths/user/calorie/private/%7Bdate%7D/remove/%7Bid%7DDelete.yaml
+    $ref: ../swagger/paths/user/calorie/private/{date}/remove/{id}.yaml
   /user/calorie/privatePost:
     $ref: ../swagger/paths/user/calorie/privatePost.yaml
   /user/calorie/public/publicPost:
