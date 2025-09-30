@@ -7,7 +7,7 @@ import { verifyToken } from "../middlewares/auth.js";
 const authrouter = express.Router();
 
 authrouter.get("/profile", verifyToken, async (req, res) => {
-  res.json({ message: "Welcome to ${req.user.email} profile" });
+  res.json({ message: `Welcome to ${req.user.email} profile` });
 });
 
 authrouter.post("/register", validateBody(registerSchema), register);
