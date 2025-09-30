@@ -1,8 +1,9 @@
 import { setupServer } from "./server.js";
 import initMongoDB from "./db/initMongoDB.js";
-const startServer = async () => {
-  await initMongoDB();
-  setupServer();
-};
+import serverless from "serverless-http";
 
-startServer();
+await initMongoDB();
+const exApp = await setupServer();
+
+export default exApp;
+export const handler = serverless(exApp);
