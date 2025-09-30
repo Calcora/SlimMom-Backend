@@ -12,7 +12,8 @@ export const register = async (req, res) => {
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
     console.error("❌ Registration error:", error.message);
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ error: "Server error", message: error.message });
+    next(error);
   }
 };
 
@@ -25,7 +26,8 @@ export const login = async (req, res) => {
     res.status(200).json({ token });
   } catch (error) {
     console.error("❌ Login error:", error.message);
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ error: "Server error", message: error.message });
+    next(error);
   }
 };
 // LOGOUT
@@ -33,6 +35,7 @@ export const logout = (req, res) => {
   try {
     res.status(200).json({ message: "User logged out successfully" });
   } catch (error) {
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ error: "Server error", message: error.message });
+    next(error);
   }
 };
