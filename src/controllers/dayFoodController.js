@@ -23,6 +23,7 @@ export const addFoodByDateController = async (req, res, next) => {
     const userId = req.user.id;
     let foodData = {};
     foodData.date = req.params.date;
+    console.log("Request body:", req.body);
     foodData.data = req.body;
     const entries = await addFoodByDate(userId, foodData);
     res.status(201).json({

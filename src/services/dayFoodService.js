@@ -43,29 +43,31 @@ export const addFoodByDate = async (userId, payload) => {
     throw new Error("No calorie entries found for this date.");
   }
 
-  //Updated
-  const findProduct = Product.findOne({ id: payload.data.productId });
+  const findProduct = await Product.findOne({ title: payload.data.name });
+  // const filter = parseFilterParams(query);
+  //   await Product.find(filter);
   if (!findProduct) {
-    throw new Error("No product found with this ID: " + payload.data.productId);
+    throw new Error("No product found with this name.");
   }
-  const productCalorie = (findProduct.calories / 100) * payload.data.weight;
+  console.log("Found Product:", findProduct.title);
 
-  console.log("Product calories: ", productCalorie);
-  const newLeft = Number(entriesCalorieEntry.left) - Number(productCalorie);
+  const productCalorie = Number(
+    (findProduct.calories / 100) * payload.data.weight
+  );
+
+  const newLeft = Number(entriesCalorieEntry.left) - productCalorie;
   entriesCalorieEntry.left = newLeft;
 
-  const newConsumed =
-    Number(entriesCalorieEntry.consumed) + Number(productCalorie);
+  const newConsumed = Number(entriesCalorieEntry.consumed) + productCalorie;
   entriesCalorieEntry.consumed = newConsumed;
 
   const newPercentage =
     (newConsumed / Number(entriesCalorieEntry.dailyRate)) * 100;
   entriesCalorieEntry.nOfNormal = Math.round(newPercentage);
 
-  //Updated
   entriesCalorieEntry.eatenFoods.push({
-    productId: payload.data.productId,
-    title: findProduct.title,
+    id: Math.floor(Math.random() * 100000),
+    name: payload.data.name,
     weight: payload.data.weight,
     calories: productCalorie,
   });
