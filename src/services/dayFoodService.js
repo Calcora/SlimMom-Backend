@@ -1,6 +1,8 @@
 import CalorieEntry from "../db/models/calorieEntry.js";
 import { isDateMatch } from "../utils/isDateMatch.js";
 
+import Product from "../db/models/product.js";
+
 export const getAllFoodByDate = async (userId, date) => {
   console.log(userId, date);
 
@@ -41,22 +43,31 @@ export const addFoodByDate = async (userId, payload) => {
     throw new Error("No calorie entries found for this date.");
   }
 
-  const newLeft =
-    Number(entriesCalorieEntry.left) - Number(payload.data.weight);
+  //Updated
+  const findProduct = Product.findOne({ id: payload.data.productId });
+  if (!findProduct) {
+    throw new Error("No product found with this ID: " + payload.data.productId);
+  }
+  const productCalorie = (findProduct.calories / 100) * payload.data.weight;
+
+  console.log("Product calories: ", productCalorie);
+  const newLeft = Number(entriesCalorieEntry.left) - Number(productCalorie);
   entriesCalorieEntry.left = newLeft;
 
   const newConsumed =
-    Number(entriesCalorieEntry.consumed) + Number(payload.data.weight);
+    Number(entriesCalorieEntry.consumed) + Number(productCalorie);
   entriesCalorieEntry.consumed = newConsumed;
 
   const newPercentage =
     (newConsumed / Number(entriesCalorieEntry.dailyRate)) * 100;
   entriesCalorieEntry.nOfNormal = Math.round(newPercentage);
 
+  //Updated
   entriesCalorieEntry.eatenFoods.push({
-    id: Math.floor(Math.random() * 100000),
-    name: payload.data.name,
+    productId: payload.data.productId,
+    title: findProduct.title,
     weight: payload.data.weight,
+    calories: productCalorie,
   });
   await entriesCalorieEntry.save();
 

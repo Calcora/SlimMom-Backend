@@ -16,7 +16,14 @@ export const setupServer = async () => {
   const app = express();
 
   app.use(express.json());
-  app.use(cors());
+  app.use(
+    cors({
+      origin: [
+        "http://localhost:5173",
+        "http://lt9hgsdz-5173.euw.devtunnels.ms/",
+      ],
+    })
+  );
   app.get("/", (req, res) => {
     res.send({ message: "Welcome to the Calorie Tracker API" });
   });

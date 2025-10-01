@@ -5,10 +5,9 @@ export const getAllEattenFoodsSchema = joi.object({
 });
 
 export const addEattenFoodSchema = joi.object({
-  name: joi.string().required().messages({
-    "string.empty": "Name cannot be empty",
-    "any.required": "Name is required",
-    "string.base": "Name must be a string",
+  productId: joi.number().required().messages({
+    "number.base": "Product ID must be a number",
+    "any.required": "Product ID is required",
   }),
   weight: joi.number().required().messages({
     "number.base": "Weight must be a number",
@@ -18,11 +17,8 @@ export const addEattenFoodSchema = joi.object({
 
 export const removeEattenFoodSchema = joi.object({
   date: joi.date().iso(["YYYY/MM/DD", "DD-MM-YYYY", "YYYY-MM-DD"]).required(),
-  id: joi
-    .number()
-    .required()
-    .messages({
-      "number.base": "ID must be a number",
-      "any.required": "ID is required",
-    }),
+  id: joi.number().required().messages({
+    "number.base": "ID must be a number",
+    "any.required": "ID is required",
+  }),
 });
