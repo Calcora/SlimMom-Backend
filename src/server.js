@@ -18,7 +18,7 @@ export function setupServer() {
   app.use(
     cors({
       origin: [
-        "http://localhost:3000",
+        "http://localhost:5173",
         "http://lt9hgsdz-5173.euw.devtunnels.ms/",
       ],
     })
